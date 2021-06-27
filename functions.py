@@ -26,13 +26,13 @@ def get_data(url):
         p.mkdir(parents=True)
         price = soup.find('div' ,attrs={"class": "price--main"}).find('span' ,attrs={"class": "money"}).text.lstrip().rstrip()
         description = soup.find('div' ,attrs={"class": "product-description rte"}).text.lstrip().rstrip().replace(' ' , '')
-        if re.search("size:.\d" , description):
-            size = re.findall("size:.*\"", description)[0]
-            size_in_cm_raw = re.findall(r"[-+]?\d*\.\d+|\d+", size)
-            size_in_cm = []
-            for size_float in size_in_cm_raw:
-                final_val7 = decimal.Decimal(float(size_float) * 2.5).quantize(decimal.Decimal('0'),rounding=decimal.ROUND_UP)
-                size_in_cm.append(str(final_val7) + ' cm')
+        # if re.search("size:.\d" , description):
+        #     size = re.findall("size:.*\"", description)[0]
+        #     size_in_cm_raw = re.findall(r"[-+]?\d*\.\d+|\d+", size)
+        #     size_in_cm = []
+        #     for size_float in size_in_cm_raw:
+        #         final_val7 = decimal.Decimal(float(size_float) * 2.5).quantize(decimal.Decimal('0'),rounding=decimal.ROUND_UP)
+        #         size_in_cm.append(str(final_val7) + ' cm')
         images_div = soup.find('div' , attrs={"class": "gallery-navigation--scroller"})
         counter = 1
         for image in images_div.find_all('img' , attrs={"class" : "product-gallery--media-thumbnail-img"}):
@@ -47,8 +47,8 @@ def get_data(url):
         file.write(f'Product description : {description} \n \n \n \n' )
         file.write(f'Product price : {price} \n \n \n \n' )
         file.write(f'Product Category : {Category} \n \n \n \n' )
-        if re.search("size:.\d", description):
-            file.write(f'Product Size : {size} \n \n \n \n' )
-            file.write(f'Product Size in CM : {size_in_cm} \n \n \n \n' )
+        # if re.search("size:.\d", description):
+        #     file.write(f'Product Size : {size} \n \n \n \n' )
+        #     file.write(f'Product Size in CM : {size_in_cm} \n \n \n \n' )
         file.write(f'Product Link : {url} \n \n \n \n' )
         file.close()
